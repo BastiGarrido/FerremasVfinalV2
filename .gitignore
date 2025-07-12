@@ -1,0 +1,22 @@
+# Entorno virtual
+venv/
+
+# Base de datos SQLite
+db.sqlite3
+
+# Variables de entorno y credenciales
+.env
+/credentials/serviceAccountKey.json
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Configuraciones de editor
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db

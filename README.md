@@ -15,4 +15,4 @@ Aplicación web para gestionar una ferretería con 5 roles (admin, cliente, cont
 - **Python 3.13.3** (`python --version`)  
 - **Git 2.50.1** (`git --version`)  
 - **VS Code 1.101.1** (`code --version`, opcional)
->>>>>>> 56ac0ba (Estructura base, .gitignore y README inicial)
+- **Postman** 11.53.5

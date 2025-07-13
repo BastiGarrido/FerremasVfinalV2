@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import CartItem
 from .serializers import CartItemSerializer
+from django.db import IntegrityError
 
 class CartItemViewSet(viewsets.ModelViewSet):
     """
@@ -36,3 +37,16 @@ class CartItemViewSet(viewsets.ModelViewSet):
     def empty(self, request):
         self.get_queryset().delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    def perform_create(self, serializer):
+        user    = self.request.user
+        product = serializer.validated_data['product']
+        qty     = serializer.validated_data['quantity']
+        try:
+            # Intento de creación normal
+            serializer.save(user=user)
+        except IntegrityError:
+            # Si ya existe, la inserción falla: actualizo la cantidad
+            item = CartItem.objects.get(user=user, product=product)
+            item.quantity += qty
+            item.save()

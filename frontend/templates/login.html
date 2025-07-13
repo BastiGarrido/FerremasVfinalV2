@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión - Ferremas</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <!-- Header rosa con título y botón Volver -->
+  <header class="header-bar">
+    <div class="container header-content">
+      <h1 class="header-title">Inicio de Sesión</h1>
+      <a href="{% url 'inicio' %}" class="button volver-button">Volver</a>
+    </div>
+  </header>
+
+  <main class="login-page">
+    <div class="login-container container">
+      <!-- Imagen lateral -->
+      <div class="login-image">
+        <img src="{% static 'img/imagen.jpg' %}" alt="Logo Ferremas">
+      </div>
+      <!-- Panel de formulario -->
+      <div class="login-panel">
+        <h2>Inicio de Sesión:</h2>
+        <form id="login-form">
+          <label for="login-usuario">Usuario:</label>
+          <input type="text" id="login-usuario" placeholder="Ingresa tu usuario" required>
+
+          <label for="login-password">Contraseña:</label>
+          <input type="password" id="login-password" placeholder="Ingresa tu contraseña" required>
+
+          <button type="submit" class="button aceptar-button">Aceptar</button>
+        </form>
+        <p class="register-link">
+          No tienes una cuenta? <a href="{% url 'inicio' %}">Regístrate aquí!</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'js/auth.js' %}"></script>
+</body>
+</html>

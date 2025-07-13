@@ -1,52 +1,36 @@
-from django.shortcuts import render
 from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import CartItem
 from .serializers import CartItemSerializer
-from django.db import IntegrityError
+from rest_framework.decorators import action 
 
 class CartItemViewSet(viewsets.ModelViewSet):
     """
-    - list:    GET    /api/carrito/
-    - create:  POST   /api/carrito/        (product, quantity)
-    - retrieve: GET   /api/carrito/{id}/
-    - update:   PUT   /api/carrito/{id}/
-    - partial_update: PATCH /api/carrito/{id}/
-    - destroy: DELETE /api/carrito/{id}/
-    - empty:    DELETE /api/carrito/empty/  (vaciar carrito)
+    Gestión de carrito:
+    - list    GET    /api/carrito/carrito/
+    - create  POST   /api/carrito/carrito/
+    - retrieve GET   /api/carrito/carrito/{id}/
+    - update  PUT    /api/carrito/carrito/{id}/
+    - partial_update PATCH /api/carrito/carrito/{id}/
+    - destroy DELETE /api/carrito/carrito/{id}/
+    - clear   DELETE /api/carrito/carrito/clear/  (si tienes action)
     """
-    serializer_class = CartItemSerializer
+    serializer_class   = CartItemSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        return CartItem.objects.filter(user=self.request.user)
+        profile = self.request.user.profile
+        return CartItem.objects.filter(user=profile)
 
     def perform_create(self, serializer):
-        user = self.request.user
-        product = serializer.validated_data['product']
-        qty = serializer.validated_data['quantity']
-        item, created = CartItem.objects.get_or_create(user=user, product=product)
-        if not created:
-            item.quantity += qty
-            item.save()
-        else:
-            serializer.save(user=user)
+        profile = self.request.user.profile
+        serializer.save(user=profile)
 
-    @action(detail=False, methods=['delete'], url_path='empty')
-    def empty(self, request):
-        self.get_queryset().delete()
+    @action(detail=False, methods=['delete'])
+    def clear(self, request):
+        """
+        Vacía todo el carrito del usuario autenticado.
+        """
+        profile = request.user.profile
+        CartItem.objects.filter(user=profile).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-    def perform_create(self, serializer):
-        user    = self.request.user
-        product = serializer.validated_data['product']
-        qty     = serializer.validated_data['quantity']
-        try:
-            # Intento de creación normal
-            serializer.save(user=user)
-        except IntegrityError:
-            # Si ya existe, la inserción falla: actualizo la cantidad
-            item = CartItem.objects.get(user=user, product=product)
-            item.quantity += qty
-            item.save()

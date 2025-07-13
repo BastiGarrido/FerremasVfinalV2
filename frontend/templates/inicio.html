@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio - Ferremas</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <header class="header-bar">
+    <div class="container header-content">
+      <div class="logo">
+        <a href="{% url 'inicio' %}"><img src="{% static 'img/ferremas_logo.png' %}" alt="Logo Ferremas"></a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li class="active"><a href="{% url 'inicio' %}">Inicio</a></li>
+          <li><a href="#">Catálogo</a></li>
+          <li><a href="#">Nosotros</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="{% url 'login' %}" class="icon user-icon" title="Iniciar sesión">
+          <img src="{% static 'img/icon_user.png' %}" alt="Iniciar sesión">
+        </a>
+        <div class="search-box">
+          <input type="text" placeholder="¿Qué estás buscando?...">
+          <button type="button" class="icon search-icon">
+            <img src="{% static 'img/icon_search.png' %}" alt="Buscar">
+          </button>
+        </div>
+        <a href="{% url 'inicio' %}" class="icon cart-icon" title="Carrito">
+          <img src="{% static 'img/icon_cart.png' %}" alt="Carrito">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="inicio-page">
+    <div class="welcome-banner">
+      <div class="welcome-text">
+        <h1>Bienvenido a Ferremas.</h1>
+        <p>Aquí podrás encontrar tus futuras herramientas, materiales de construcción, artículos y mucho más. Tenemos un extenso catálogo de productos el cual puedes explorar en el apartado <a href="#">“Catálogo”</a>.</p>
+        <p>Nuestro servicio recorre todo Chile para satisfacer a nuestro público, con varias sucursales en la región metropolitana y en otras regiones, donde podrás retirar tus herramientas o para mayor comodidad también contamos con sistema de despacho a domicilio, puedes encontrar más información en el apartado <a href="#">“Nosotros”</a>.</p>
+        <p>También si tienes alguna duda, reclamo o sugerencia, te sugerimos revisar nuestro apartado de <a href="#">“Contacto”</a> para ayudarte.</p>
+      </div>
+      <div class="welcome-image">
+        <img src="{% static 'img/imagen.jpg' %}" alt="Herramientas">
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+</html>

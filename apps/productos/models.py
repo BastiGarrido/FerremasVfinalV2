@@ -3,6 +3,8 @@ from django.db import models
 class Product(models.Model):
     name        = models.CharField("Nombre", max_length=100)
     description = models.TextField("Descripción", blank=True)
+    brand       = models.CharField("Marca", max_length=50, blank=True)       # ← Nuevo
+    category    = models.CharField("Categoría", max_length=50, blank=True)   # ← Nuevo
     price       = models.DecimalField("Precio", max_digits=10, decimal_places=2)
     stock       = models.PositiveIntegerField("Stock disponible", default=0)
     image_url   = models.URLField("URL de imagen", blank=True)

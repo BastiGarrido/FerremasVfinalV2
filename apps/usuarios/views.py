@@ -1,21 +1,29 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from rest_framework.decorators import action
+from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import UserProfile
-from .serializers import UserProfileSerializer
+from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 
-class UserProfileViewSet(viewsets.ModelViewSet):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
+from .serializers import RegisterSerializer
 
-    # Solo el propio usuario
-    def get_queryset(self):
-        return UserProfile.objects.filter(uid=self.request.user.uid)
+class RegisterView(generics.CreateAPIView):
+    serializer_class = RegisterSerializer
+    permission_classes = [AllowAny]
 
-    # Endpoint adicional /api/usuarios/me/
-    @action(detail=False, methods=['get'])
-    def me(self, request):
-        profile = UserProfile.objects.get(uid=request.user.uid)
-        serializer = self.get_serializer(profile)
-        return Response(serializer.data)
+    def post(self, request, *args, **kwargs):
+        # Usamos post para manejar la creación y token
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response({
+            'user': serializer.data,
+            'token': token.key
+        }, status=status.HTTP_201_CREATED)
+
+class LoginView(ObtainAuthToken):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        resp = super().post(request, *args, **kwargs)
+        return Response({'token': resp.data['token']})

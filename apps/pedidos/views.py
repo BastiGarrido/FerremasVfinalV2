@@ -12,28 +12,26 @@ class OrderViewSet(viewsets.ModelViewSet):
     - retrieve:  GET    /api/pedidos/{id}/
     - destroy:   DELETE /api/pedidos/{id}/
     """
-    serializer_class = OrderSerializer
+    serializer_class   = OrderSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Historial de pedidos del usuario
-        return Order.objects.filter(user=self.request.user).order_by('-created_at')
+        # Usa el perfil de usuario para obtener los pedidos
+        profile = self.request.user.profile
+        return Order.objects.filter(user=profile)
 
     def perform_create(self, serializer):
-        user = self.request.user
-        cart_items = user.cart_items.all()
-        if not cart_items.exists():
-            raise ValidationError("El carrito está vacío.")
-        total = sum(item.product.price * item.quantity for item in cart_items)
-        # Crea el pedido
-        order = serializer.save(user=user, total=total)
-        # Genera OrderItems
+        # Obtén el perfil del usuario
+        profile = self.request.user.profile
+        # Obtén los items del carrito asociados al perfil
+        from apps.carrito.models import CartItem
+        cart_items = CartItem.objects.filter(user=profile)
+        # Calcula el total sumando cada item
+        total = sum([item.product.price * item.quantity for item in cart_items])
+        # Crea el pedido con user=profile y total
+        order = serializer.save(user=profile, total=total)
+        # Luego asocia los items al pedido (si tu modelo lo necesita)
         for item in cart_items:
-            OrderItem.objects.create(
-                order=order,
-                product=item.product,
-                quantity=item.quantity,
-                price=item.product.price
-            )
-        # Vacía el carrito
+            order.items.add(item)
+        # Opcional: vaciar el carrito después de crear pedido
         cart_items.delete()

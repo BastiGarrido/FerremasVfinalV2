@@ -8,5 +8,6 @@ urlpatterns = [
     path('api/', include('apps.productos.urls')),
     path('api/', include('apps.carrito.urls')),
     path('api/', include('apps.pedidos.urls')),
+    path('api/', include('apps.pagos.urls')),
     # luego agregaremos los demás apps aquí
 ]

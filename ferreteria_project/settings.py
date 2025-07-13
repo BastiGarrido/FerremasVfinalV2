@@ -150,3 +150,6 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+# Modo de prueba para pagos: si True, usamos respuestas simuladas
+PAYMENT_USE_MOCK = True

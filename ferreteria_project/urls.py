@@ -6,5 +6,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('apps.usuarios.urls')),
     path('api/', include('apps.productos.urls')),
+    path('api/', include('apps.carrito.urls')),
     # luego agregaremos los demás apps aquí
 ]

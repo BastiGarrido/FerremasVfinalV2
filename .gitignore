@@ -6,7 +6,6 @@ db.sqlite3
 
 # Variables de entorno y credenciales
 .env
-/credentials/serviceAccountKey.json
 
 # Archivos compilados de Python
 __pycache__/

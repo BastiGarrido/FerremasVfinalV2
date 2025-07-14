@@ -10,12 +10,12 @@ from .permissions import IsBodeguero, IsVendedorOrAdmin
 class ProductViewSet(viewsets.ModelViewSet):
     """
     Gestión de productos:
-    - list            GET    /api/productos/
-    - create          POST   /api/productos/
-    - retrieve        GET    /api/productos/{id}/
-    - update          PUT    /api/productos/{id}/
-    - partial_update  PATCH  /api/productos/{id}/
-    - destroy         DELETE /api/productos/{id}/
+    - list            GET    /api/productos/productos/
+    - create          POST   /api/productos/productos/
+    - retrieve        GET    /api/productos/productos/{id}/
+    - update          PUT    /api/productos/productos/{id}/
+    - partial_update  PATCH  /api/productos/productos/{id}/
+    - destroy         DELETE /api/productos/productos/{id}/
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

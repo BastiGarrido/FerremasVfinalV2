@@ -1,3 +1,5 @@
+# apps/pedidos/models.py
+
 from django.db import models
 from apps.usuarios.models import UserProfile
 from apps.productos.models import Product
@@ -15,7 +17,10 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Pedido {self.id} - {self.user.uid} - {self.status}"
+        # Mostrar el nombre de usuario (auth.User.username) en lugar de `uid`
+        username = self.user.user.username
+        return f"Pedido {self.id} – {username} – {self.status}"
+
 
 class OrderItem(models.Model):
     order      = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')

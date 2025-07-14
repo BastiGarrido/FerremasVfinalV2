@@ -1,27 +1,35 @@
-// catalogo.js: carga y filtra productos
+
 
 document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.getElementById('catalogo-grid');
+  const grid      = document.getElementById('catalogo-grid');
   const countCurr = document.getElementById('count-current');
-  const countTotal = document.getElementById('count-total');
-  const orderSel = document.getElementById('order-select');
-  const catSel   = document.getElementById('category-select');
-  const minInput = document.getElementById('price-min');
-  const maxInput = document.getElementById('price-max');
-  const applyBtn = document.getElementById('filter-apply');
+  const countTotal= document.getElementById('count-total');
+  const orderSel  = document.getElementById('order-select');
+  const catSel    = document.getElementById('category-select');
+  const minInput  = document.getElementById('price-min');
+  const maxInput  = document.getElementById('price-max');
+  const applyBtn  = document.getElementById('filter-apply');
 
   let allCats = new Set();
 
   async function load() {
     const params = new URLSearchParams();
-    if (orderSel.value) params.append('ordering', orderSel.value);
-    if (catSel.value)   params.append('category', catSel.value);
-    if (minInput.value) params.append('price_min', minInput.value);
-    if (maxInput.value) params.append('price_max', maxInput.value);
+    if (orderSel.value)   params.append('ordering', orderSel.value);
+    if (catSel.value)     params.append('category', catSel.value);
+    if (minInput.value)   params.append('price__gte', minInput.value);
+    if (maxInput.value)   params.append('price__lte', maxInput.value);
 
+    // Llamamos a /api/productos/productos/
     const res = await apiFetch('/productos/productos/?' + params.toString());
+
+    // Soportamos paginación DRF o lista plana
+    const data    = Array.isArray(res) ? res : res.results;
+    const total   = Array.isArray(res) ? res.length : res.count;
+
     grid.innerHTML = '';
-    res.results.forEach(p => {
+    allCats.clear();
+
+    data.forEach(p => {
       allCats.add(p.category);
       const card = document.createElement('div');
       card.className = 'product-card';
@@ -40,13 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(() => alert('Añadido al carrito'));
       };
     });
-    countCurr.textContent = res.results.length;
-    countTotal.textContent = res.count;
 
-    // Poblamos categorías
-    catSel.innerHTML = '<option value=\"\">Todas</option>';
+    countCurr.textContent = data.length;
+    countTotal.textContent = total;
+
+    // Poblamos selector de categorías
+    catSel.innerHTML = '<option value="">Todas</option>';
     Array.from(allCats).forEach(c => {
-      catSel.insertAdjacentHTML('beforeend', `<option value="${c}">${c}</option>`);
+      catSel.insertAdjacentHTML('beforeend',
+        `<option value="${c}">${c}</option>`
+      );
     });
   }
 

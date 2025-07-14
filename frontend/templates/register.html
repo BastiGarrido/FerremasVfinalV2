@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Registro - Ferremas{% endblock %}
+
+{% block content %}
+  <!-- Header rosa con título y botón Volver -->
+  <header class="header-bar">
+    <div class="container header-content">
+      <h1 class="header-title">Registro</h1>
+      <a href="{% url 'inicio' %}" class="button volver-button">Volver</a>
+    </div>
+  </header>
+
+  <main class="register-page">
+    <div class="register-container container">
+      <!-- Panel de formulario -->
+      <div class="register-panel">
+        <h2>Regístrate aquí</h2>
+        <form id="register-form">
+          <label for="register-email">Correo:</label>
+          <input type="email" id="register-email" placeholder="Ingresa tu correo" required>
+
+          <label for="register-username">Nombre de usuario:</label>
+          <input type="text" id="register-username" placeholder="Elige un nombre de usuario" required>
+
+          <label for="register-password">Contraseña:</label>
+          <input type="password" id="register-password" placeholder="Crea una contraseña" required>
+
+          <button type="submit" class="button aceptar-button">Aceptar</button>
+        </form>
+      </div>
+      <!-- Imagen lateral -->
+      <div class="register-image">
+        <img src="{% static 'images/imagen.jpg' %}" alt="Logo Ferremas">
+      </div>
+    </div>
+  </main>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static 'js/usuario.js' %}" defer></script>
+{% endblock %}

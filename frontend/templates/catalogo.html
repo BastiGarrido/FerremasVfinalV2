@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Catálogo - Ferremas{% endblock %}
+
+{% block content %}
+<main class="catalogo-page container">
+  <!-- Sidebar de filtros -->
+  <aside class="catalogo-sidebar">
+    <div class="filter-header">
+      <h2>Filtrar Productos</h2>
+      <p>Mostrando <span id="count-current">0</span> de <span id="count-total">0</span> productos</p>
+      <hr>
+    </div>
+
+    <div class="filter-section">
+      <label for="order-select">Ordenar por:</label>
+      <select id="order-select">
+        <option value="">Posición</option>
+        <option value="price">Precio: menor a mayor</option>
+        <option value="-price">Precio: mayor a menor</option>
+      </select>
+    </div>
+
+    <div class="filter-section">
+      <label for="category-select">Categoría:</label>
+      <select id="category-select">
+        <option value="">Todas</option>
+      </select>
+    </div>
+
+    <div class="filter-section">
+      <p>Filtro por Precio:</p>
+      <label for="price-min">Desde:</label>
+      <div class="input-symbol">
+        <span class="symbol">$</span>
+        <input type="number" id="price-min" placeholder="Min">
+      </div>
+      <label for="price-max">Hasta:</label>
+      <div class="input-symbol">
+        <span class="symbol">$</span>
+        <input type="number" id="price-max" placeholder="Max">
+      </div>
+    </div>
+
+    <button id="filter-apply" class="button">Aplicar filtros</button>
+  </aside>
+
+  <!-- Grid de productos -->
+  <section class="catalogo-grid" id="catalogo-grid">
+    <!-- JS insertará tarjetas de producto aquí -->
+  </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static 'js/catalogo.js' %}" defer></script>
+{% endblock %}

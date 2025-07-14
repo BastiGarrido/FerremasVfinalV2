@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Administrador{% endblock %}
+
+{% block content %}
+  <section class="dashboard">
+    <h1>Dashboard Administrador</h1>
+    <p>Saludos, {{ user.username }}. Como administrador, puedes:</p>
+    <ul>
+      <li>Gestionar todos los roles y crear nuevos usuarios.</li>
+      <li>Acceder a los dashboards de cliente, vendedor, bodeguero y contador.</li>
+      <li>Revisar políticas de devolución, envío y privacidad.</li>
+      <li>Configurar ajustes globales de la plataforma.</li>
+    </ul>
+  </section>
+{% endblock %}

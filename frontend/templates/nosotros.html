@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nosotros - Ferremas{% endblock %}
+
+{% block content %}
+  <!-- Breadcrumb -->
+  <div class="breadcrumb container">
+    <a href="{% url 'inicio' %}">Inicio</a> &gt; <span>Nosotros</span>
+  </div>
+
+  <!-- Sobre Nosotros -->
+  <section class="info-section bg-pink container">
+    <div class="info-content">
+      <div class="info-text">
+        <h2>Sobre Nosotros:</h2>
+        <p>En FERREMAS, creemos que las grandes ideas comienzan con una herramienta en la mano. Somos una ferretería con alma familiar, con años de experiencia acompañando a personas como tú en miles de proyectos: desde colgar un cuadro hasta levantar una casa. Y como queremos estar cada vez más cerca, creamos esta nueva plataforma digital para que puedas comprar lo que necesites, cuando lo necesites, sin hacer filas ni perder tiempo.</p>
+      </div>
+      <div class="info-image">
+        <img src="{% static 'images/nosotros1.jpg' %}" alt="Equipo Ferremas">
+      </div>
+    </div>
+  </section>
+
+  <!-- Nuestra Misión -->
+  <section class="info-section bg-orange container">
+    <div class="info-content reverse">
+      <div class="info-image">
+        <img src="{% static 'images/nosotros2.jpg' %}" alt="Entrega Ferremas">
+      </div>
+      <div class="info-text">
+        <h2>Nuestra Misión:</h2>
+        <p>Brindar acceso rápido, seguro y confiable a herramientas y productos de ferretería de calidad, integrando la experiencia física con la tecnología digital. Queremos ser el socio de confianza para cada proyecto, aportando no solo soluciones prácticas, sino también cercanía, eficiencia y un servicio humano.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nuestra Visión -->
+  <section class="info-section bg-yellow container">
+    <div class="info-content">
+      <div class="info-text">
+        <h2>Nuestra Visión:</h2>
+        <p>Ser una ferretería líder a nivel nacional en innovación y servicio, combinando lo mejor del comercio tradicional con las nuevas tecnologías. Aspiramos a construir una red de atención moderna, accesible y comprometida con las personas, donde cada cliente encuentre lo que necesita de forma simple, rápida y confiable, sin importar dónde se encuentre.</p>
+      </div>
+      <div class="info-image">
+        <img src="{% static 'images/nosotros3.jpg' %}" alt="Visión Ferremas">
+      </div>
+    </div>
+  </section>
+{% endblock %}

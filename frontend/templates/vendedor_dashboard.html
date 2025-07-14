@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Vendedor{% endblock %}
+
+{% block content %}
+  <section class="dashboard">
+    <h1>Dashboard Vendedor</h1>
+    <p>Bienvenido, {{ user.username }}. Aquí podrás:</p>
+    <ul>
+      <li>Ver y aprobar precios de productos.</li>
+      <li>Gestionar catálogo: asignar precios, destacar productos.</li>
+      <li>Visualizar pedidos pendientes de aprobación.</li>
+    </ul>
+  </section>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carrito de Compras - Ferremas</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+  <!-- Header rosa con logo, navegación y acciones -->
+  <header class="header-bar">
+    <div class="container header-content">
+      <div class="logo">
+        <a href="{% url 'inicio' %}">
+          <img src="{% static 'img/ferremas_logo.png' %}" alt="Logo Ferremas">
+        </a>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{% url 'inicio' %}">Inicio</a></li>
+          <li><a href="{% url 'catalogo' %}">Catálogo</a></li>
+          <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+          <li><a href="{% url 'contacto' %}">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="{% url 'login' %}" class="icon user-icon" title="Iniciar sesión">
+          <img src="{% static 'img/icon_user.png' %}" alt="Usuario">
+        </a>
+        <div class="search-box">
+          <input type="text" placeholder="¿Qué estás buscando?...">
+          <button type="button" class="icon search-icon">
+            <img src="{% static 'img/icon_search.png' %}" alt="Buscar">
+          </button>
+        </div>
+        <a href="{% url 'carrito' %}" class="icon cart-icon" title="Carrito">
+          <img src="{% static 'img/icon_cart.png' %}" alt="Carrito">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="cart-page">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <div class="breadcrumb">
+        <a href="{% url 'inicio' %}">Inicio</a> &gt; <strong>Carrito de Compras</strong>
+      </div>
+
+      <!-- Lista de ítems -->
+      <div class="cart-items">
+        {% for item in cart_items %}
+        <div class="cart-item{% if forloop.first %} selected{% endif %}">
+          <div class="item-checkbox">
+            <input type="checkbox" name="selected" value="{{ item.id }}" {% if forloop.first %}checked{% endif %}>
+          </div>
+          <div class="item-image">
+            <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}">
+          </div>
+          <div class="item-details">
+            <h3 class="item-name">{{ item.product.name }}</h3>
+            <p class="item-price">Precio: ${{ item.product.price }}</p>
+            <div class="quantity-control">
+              <button class="qty-btn minus" data-id="{{ item.id }}">−</button>
+              <span class="qty">{{ item.quantity }}</span>
+              <button class="qty-btn plus" data-id="{{ item.id }}">＋</button>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <p class="empty-cart">Tu carrito está vacío.</p>
+        {% endfor %}
+      </div>
+
+      <!-- Footer con total y botón de pago -->
+      <div class="cart-footer">
+        <div class="total">
+          Total: ${{ total }}
+        </div>
+        <button id="checkout-btn" class="button pay-button">Ir a Pagar</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="{% static 'js/cart.js' %}"></script>
+</body>
+</html>

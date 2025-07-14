@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contacto - Ferremas{% endblock %}
+
+{% block content %}
+  <!-- Breadcrumb -->
+  <div class="breadcrumb container">
+    <a href="{% url 'inicio' %}">Inicio</a> &gt; <span>Contacto</span>
+  </div>
+
+  <!-- Encabezado de contacto -->
+  <section class="info-section bg-pink container">
+    <div class="info-text">
+      <h2>¿Cómo puedes contactarnos?</h2>
+      <p>A continuación te dejaremos nuestras redes sociales y más formas de contactarnos, también puedes visitarnos en nuestras sucursales alrededor de Chile:</p>
+    </div>
+  </section>
+
+  <!-- Redes Sociales y Contacto directo -->
+  <section class="contact-section container">
+    <div class="contact-block bg-orange">
+      <h3>Redes Sociales:</h3>
+      <ul class="social-list">
+        <li><img src="{% static 'images/icons/instagram.svg' %}" alt="Instagram"> @Ferremas.oficial</li>
+        <li><img src="{% static 'images/icons/tiktok.svg' %}"    alt="TikTok"> @Ferremas</li>
+        <li><img src="{% static 'images/icons/twitter.svg' %}"   alt="X"> @FerremasOficial</li>
+        <li><img src="{% static 'images/icons/youtube.svg' %}"   alt="YouTube"> @Ferremas</li>
+      </ul>
+    </div>
+    <div class="contact-block bg-yellow">
+      <h3>Contáctanos:</h3>
+      <ul class="contact-list">
+        <li><img src="{% static 'images/icons/whatsapp.svg' %}" alt="WhatsApp"> +56 9 1234 5678</li>
+        <li><img src="{% static 'images/icons/email.svg' %}"    alt="Email"> Contacto.Ferremas@gmail.com</li>
+        <li><img src="{% static 'images/icons/phone.svg' %}"    alt="Teléfono"> 22 1234 5678</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sucursales -->
+  <section class="branches-section bg-dark container">
+    <h3>Nuestras Sucursales:</h3>
+    <p>Contamos con sucursales en Santiago, Valparaíso, Concepción y otras ciudades principales de Chile. Para más información, visita nuestras redes sociales o contáctanos directamente.</p>
+  </section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Bodeguero{% endblock %}
+
+{% block content %}
+  <section class="dashboard">
+    <h1>Dashboard Bodeguero</h1>
+    <p>Hola, {{ user.username }}. En esta sección podrás:</p>
+    <ul>
+      <li>Crear nuevos productos con descripción y stock.</li>
+      <li>Actualizar cantidades en inventario.</li>
+      <li>Marcar productos como agotados o disponibles.</li>
+    </ul>
+  </section>
+{% endblock %}

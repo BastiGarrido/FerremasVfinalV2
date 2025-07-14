@@ -1,13 +1,9 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio de Sesión - Ferremas</title>
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
+
+{% block title %}Inicio de Sesión - Ferremas{% endblock %}
+
+{% block content %}
   <!-- Header rosa con título y botón Volver -->
   <header class="header-bar">
     <div class="container header-content">
@@ -20,7 +16,7 @@
     <div class="login-container container">
       <!-- Imagen lateral -->
       <div class="login-image">
-        <img src="{% static 'img/imagen.jpg' %}" alt="Logo Ferremas">
+        <img src="{% static 'images/imagen.jpg' %}" alt="Logo Ferremas">
       </div>
       <!-- Panel de formulario -->
       <div class="login-panel">
@@ -35,12 +31,14 @@
           <button type="submit" class="button aceptar-button">Aceptar</button>
         </form>
         <p class="register-link">
-          No tienes una cuenta? <a href="{% url 'inicio' %}">Regístrate aquí!</a>
+          ¿No tienes una cuenta? <a href="{% url 'register' %}">Regístrate aquí!</a>
         </p>
       </div>
     </div>
   </main>
+{% endblock %}
 
-  <script src="{% static 'js/auth.js' %}"></script>
-</body>
-</html>
+{% block scripts %}
+  {{ block.super }}
+  <script src="{% static 'js/usuario.js' %}" defer></script>
+{% endblock %}
